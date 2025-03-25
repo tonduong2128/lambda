@@ -1,33 +1,30 @@
-name: Build and Test Spring Boot Project
+version: 0.2
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+    commands:
+      echo "Prepare enviroments"
 
-jobs:
+  pre_build:
+    commands:
+      echo "Starting pre_build phase"
+
   build:
-    runs-on: ubuntu-latest
+    commands:
+      echo "Building the Spring Boot application with Maven"
+      ./mvnw clean install
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  post_build:
+    commands:
+      echo "Build complete"
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
+artifacts:
+  files:
+    - target/lambda-0.0.1-SNAPSHOT.jar
+  discard-paths: yes
 
-      - name: Build with Maven (including tests)
-        run: mvn clean package
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lambda-app
-          path: target/lambda-0.0.1-SNAPSHOT.jar
+cache:
+  paths:
+    - '/root/.m2/**/*'

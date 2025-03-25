@@ -5,20 +5,20 @@ phases:
     runtime-versions:
       java: corretto17
     commands:
-      echo "Prepare enviroments"
+      - echo "Prepare enviroments"
 
   pre_build:
     commands:
-      echo "Starting pre_build phase"
+      - echo "Starting pre_build phase"
 
   build:
     commands:
-      echo "Building the Spring Boot application with Maven"
-      ./mvnw clean install
+      - echo "Building the Spring Boot application with Maven"
+      - ./mvnw clean install
 
   post_build:
     commands:
-      echo "Build complete"
+      - echo "Build complete"
 
 artifacts:
   files:

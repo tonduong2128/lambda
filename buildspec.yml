@@ -21,6 +21,7 @@ phases:
 
   post_build:
     commands:
+      - aws lambda update-function-code --function-name lambda --region ap-southeast-1 --zip-file fileb://target/lambda-0.0.1-SNAPSHOT.jar --publish
       - TargetVersion=$(echo $(aws lambda list-versions-by-function --function-name lambda --region ap-southeast-1 | grep Version | tail -1 | tr -cd "[0-9]")) 
       - echo $CurrentVersion
       - echo $TargetVersion
@@ -29,7 +30,6 @@ phases:
 
 artifacts:
   files:
-    - target/lambda-0.0.1-SNAPSHOT.jar
     - appspec.yml
   discard-paths: yes
 

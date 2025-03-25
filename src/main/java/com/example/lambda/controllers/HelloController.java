@@ -19,6 +19,6 @@ public class HelloController {
 
     @PostMapping
     public String post(@RequestBody(required = false) String entity) {
-        return entity;
+        return entity.toUpperCase();
     }
 }

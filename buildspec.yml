@@ -24,7 +24,7 @@ phases:
       - TargetVersion=$(echo $(aws lambda list-versions-by-function --function-name lambda --region ap-southeast-1 | grep Version | tail -1 | tr -cd "[0-9]")) 
       - echo $CurrentVersion
       - echo $TargetVersion
-      - sed -e 's/{{CurrentVersion}}/'$CurrentVersion'/g' -e 's/{{TargetVersion}}/'$TargetVersion'/g' appspec.yml > appspec.yml
+      - sed -e 's/{{CurrentVersion}}/'$CurrentVersion'/g' -e 's/{{TargetVersion}}/'$TargetVersion'/g' appspec.yml > appspec.tmp && mv appspec.tmp appspec.yml
       - echo "Post build complete"
 
 artifacts:
